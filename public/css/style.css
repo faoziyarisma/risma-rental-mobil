@@ -1,0 +1,14 @@
+.times{
+    font-family: 'Merriweather', serif;
+    font-size: 12pt;
+}
+
+.times-small{
+    font-family: 'Merriweather', serif;
+    font-size: 10pt;
+}
+
+.times-larger{
+    font-family: 'Merriweather', serif;
+    font-size: 16pt;
+}
