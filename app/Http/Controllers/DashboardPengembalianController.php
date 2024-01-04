@@ -1,9 +1,11 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use App\Models\Mobil;
 use App\Models\Order;
 use Illuminate\Http\Request;
+// use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class DashboardPengembalianController extends Controller
 {
@@ -72,6 +74,19 @@ class DashboardPengembalianController extends Controller
         //
     }
 
+    public function pengembalian_form(Order $pengembalian){
+        $mobil_id = $pengembalian->mobil_id;
+        $tarif_per_hari = DB::table('mobils')
+        ->where('id', $mobil_id)
+        ->value('tarif_per_hari');
+        // dd($tarif_per_hari);
+        return view('dashboard.pengembalian.form_pengembalian', [
+            'title' => 'Pengembalian Mobil',
+            'pengembalian' => $pengembalian,
+            'tarif_per_hari' => $tarif_per_hari  
+        ]);
+    }
+
     /**
      * Fungsi status_name : untuk mengetahui status dari mobil yang diketahui
      */
@@ -84,5 +99,40 @@ class DashboardPengembalianController extends Controller
         }
 
         return $result;
+    }
+
+    /**
+     * Fungsi validate_NoPlat : untuk memvalidasi inputan no_plat user dengan no_plat sebenarnya
+     */
+    public static function validate_NoPlat(Request $request){
+        // mendapatkan inputan no_plat dari user
+        $mobil_id = $request->input('mobil_id');
+        $no_plat = $request->input('no_plat');
+
+        // mendapatkan data no_plat sebenarnya
+        $act_no_plat = DB::table('mobils')->where('id','=',$mobil_id)->value('no_plat');
+
+        if($no_plat == $act_no_plat){
+            $result = 1;
+        }
+        else{
+            $result = 0;
+        }
+
+        return $result;
+    }
+
+    public function update_status(Request $request){
+        $mobil_id = $request->mobil_id;
+        $order_id = $request->order_id;
+        $status = 1;
+        // dd($order_id);
+        // mengupdate status mobil
+        Mobil::where('id', $mobil_id)->update(['status' => $status]);
+
+        //mengupdate status sewa
+        Order::where('id', $order_id)->update(['status_sewa' => $status]);
+
+        return redirect('/dashboard/pengembalians')->with('success', 'Mobil berhasil dikembalikan!');
     }
 }

@@ -151,7 +151,7 @@ class DashboardOrderController extends Controller
         $validatedData = $request->validate($rules);
         $validatedData['user_id'] = $user_id;
         $validatedData['tarif'] = $tarif;
-        $validatedData['status_sewa'] = 0;
+        
         // dd($validatedData);
         Order::where('id', $order->id)->update($validatedData);
 

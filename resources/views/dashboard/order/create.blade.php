@@ -39,7 +39,7 @@
                     <!-- Tanggal Selesai -->
                     <div class="row mb-3">
                         <div class="col-md-4 col-sm-12">
-                            <p class="my-0 mx-3">Tanggal pengajuan</p>
+                            <p class="my-0 mx-3">Tanggal Selesai</p>
                             <p class="small text-danger mb-2 mx-3">*required</p>
                         </div>
                         <div class="col-md-7 col-sm-12">

@@ -48,11 +48,19 @@ Route::resource('/dashboard/mobils', DashboardMobilController::class);
 //Route untuk halaman peminjaman mobil
 Route::resource('/dashboard/orders', DashboardOrderController::class);
 
+//Route validasi data pengembalian
+Route::post('/dashboard/pengembalians/update_status', [DashboardPengembalianController::class, 'update_status']);
+
 //Route untuk halaman pengembalian mobil
 Route::resource('/dashboard/pengembalians', DashboardPengembalianController::class);
 
-//halaman single event
-Route::get('/dashboard/pengembalians/{mobil:id}',[DashboardMobilController::class,'sewa']);
+//halaman form pengembalian mobil
+Route::get('/dashboard/pengembalians/{pengembalian:id}',[DashboardPengembalianController::class,'pengembalian_form']);
+
+//Route validasi nomor plat
+Route::get('/validate_NoPlat', [DashboardPengembalianController::class, 'validate_NoPlat'])->name('validate_NoPlat');
+
+
 
 //Routing logout
 Route::post('/logout', [LoginController::class, 'logout']);
