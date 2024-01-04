@@ -20,7 +20,8 @@ class DashboardPengembalianController extends Controller
         return view('dashboard.pengembalian.index', [
             'title' => 'Pengembalian Mobil',
             'pengembalians' => $pengembalians,
-            'auth_id' => $auth_id
+            'auth_id' => $auth_id,
+            // 'order' => $pengembalians
             // 'pengembalians_warning' => $pengembalians_warning,
             // 'message_warning' => $message_warning,
         ]);
@@ -47,7 +48,13 @@ class DashboardPengembalianController extends Controller
      */
     public function show(Order $order)
     {
-        //
+        dd($order);
+        return view('dashboard.pengembalian.show', [
+            'title' => 'Detail Data Pengembalian',
+            // 'tarif_per_hari' => $tarif_per_hari,
+            'pengembalian' => $order
+            // 'harga_satuan' => $harga_satuan
+        ]);
     }
 
     /**

@@ -2,7 +2,7 @@
 
 @section('container')
 <div class="container-fluid isian-db">
-    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 bpengembalian-bottom">
+    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
         <h4>Data Pengembalian Mobil RENTAL RISMA</h4>
     </div>
     {{-- deskripsi --}}
@@ -59,17 +59,8 @@
                                         @endphp
                                     </td>
                                     <td>
-                                        <!-- @if ($pengembalian->user_id == $auth_id)
-                                            <a href="/dashboard/pengembalians/{{ $pengembalian->id }}" class="badge bg-info"><span><i class="bi bi-eye"></i></span></a>
-                                            <a href="/dashboard/pengembalians/{{ $pengembalian->id }}/edit" class="badge bg-warning"><span><i class="bi bi-pencil"></i></span></a>
-                                            <form action="/dashboard/pengembalians/{{ $pengembalian->id }}" method="post" class="d-inline">
-                                                @method('delete')
-                                                @csrf
-                                                <button class="badge bg-danger border-0" onclick="return confirm('Apakah anda yakin ingin menghapus data ini?')"><span><i class="bi bi-trash-fill"></i></span></button>
-                                            </form>
-                                        @endif -->
-                                        @if ($pengembalian->status_sewa==0)
-                                            <a href="/dashboard/pengembalians/{{ $pengembalian->id }}" class="badge bg-info"  style="text-decoration: none; color: black;"> <span>Kembalikan Mobil</span></a>
+                                        @if ($pengembalian->user_id == $auth_id && $pengembalian->status_sewa==0)
+                                            <a href="/dashboard/pengembalians_form/{{ $pengembalian->id }}" class="badge bg-info"  style="text-decoration: none; color: black;"> <span>Kembalikan Mobil</span></a>
                                         @endif
                                     </td>
                                     

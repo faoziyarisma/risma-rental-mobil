@@ -96,7 +96,7 @@ class DashboardOrderController extends Controller
         ->value('tarif_per_hari');
 
         return view('dashboard.order.show', [
-            'title' => 'Detail Data Penjualan',
+            'title' => 'Detail Data Peminjaman',
             'tarif_per_hari' => $tarif_per_hari,
             'order' => $order
             // 'harga_satuan' => $harga_satuan
