@@ -190,4 +190,42 @@ class DashboardOrderController extends Controller
 
         return $result;
     }
+
+    /**
+     * Fungsi validate_NoPlat : untuk memvalidasi inputan no_plat user dengan no_plat sebenarnya
+     */
+    // public static function validate_date(Request $request){
+    //     // mendapatkan inputan no_plat dari user
+    //     $tgl_mulai = $request->input('tgl_mulai');
+    //     $tgl_selesai = $request->input('tgl_selesai');
+
+    //     //daftar mobil yang sedang disewa
+    //     $mobils_sewa = DB::table('mobils')->where('status',0)->get();
+    //     5 januari
+    //     // 6 januari 2024
+    //     // 10 januari 2024
+    //     if($tgl_mulai !== null && tgl_selesai !== null){
+
+    //     }
+    //     else{
+    //         if($tgl_mulai !== null && tgl_selesai == null){
+
+    //         }
+    //         else{
+
+    //         }
+    //     }
+
+    //     // mendapatkan data no_plat sebenarnya
+    //     $act_no_plat = DB::table('mobils')->where('id','=',$mobil_id)->value('no_plat');
+
+    //     if($no_plat == $act_no_plat){
+    //         $result = 1;
+    //     }
+    //     else{
+    //         $result = 0;
+    //     }
+
+    //     return $result;
+    // }
 }

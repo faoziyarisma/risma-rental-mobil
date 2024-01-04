@@ -75,4 +75,50 @@
             </div>
         </div>
     </div>
+    <script>
+        $(document).ready(function() {
+            $(document).on('change', '#tgl_mulai', function() {
+                var tgl_mulai = $(this).val();
+                var tgl_mulai = new Date(tgl_mulai);
+                var tgl_selesai = $('#tgl_selesai').val();
+                if(gl_selesai != null && tgl_selesai !== ""){
+                    var tgl_selesai = new Date(tgl_selesai);
+                }
+                
+                $.ajax({ 
+                    type: 'GET', 
+                    url:  '{{ route('validate_date') }}', 
+                    data: { tgl_mulai: tgl_mulai, tgl_selesai: tgl_selesai }, 
+                    async:false, 
+                    dataType: 'json', 
+                    success: function (data) { 
+                        result=data; 
+                    },
+                    error: function(error) {
+                        console.error('Error validate date:', error);
+                    }
+                });
+    
+                var valid = parseInt(result);
+                if(valid==0){
+                    $('#final').css({
+                        "pointer-events" : "none",
+                    });
+                    $('#note').css({
+                        "display": "inline",
+                        "color": "red"
+                    });
+                }
+                else{
+                    $('#final').css({
+                        "pointer-events" : "auto",
+                    });
+                    $('#note').css({
+                        "display": "none"
+                    });
+                }
+    
+            });
+        });
+    </script>
 @endsection

@@ -48,6 +48,9 @@ Route::resource('/dashboard/mobils', DashboardMobilController::class);
 //Route untuk halaman peminjaman mobil
 Route::resource('/dashboard/orders', DashboardOrderController::class);
 
+//Route validasi tanggal sewa
+Route::get('/validate_date', [DashboardOrderController::class, 'validate_date'])->name('validate_date');
+
 //Route validasi data pengembalian
 Route::post('/dashboard/pengembalians/update_status', [DashboardPengembalianController::class, 'update_status']);
 
