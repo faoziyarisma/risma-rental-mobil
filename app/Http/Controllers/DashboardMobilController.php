@@ -14,17 +14,50 @@ class DashboardMobilController extends Controller
      */
     public function index()
     {
-        $is_admin = auth()->user()->is_admin;
-        $user_id = auth()->user()->id;
-        if($is_admin){
-            $mobils = Mobil::latest()->paginate(10);
+        // $is_admin = auth()->user()->is_admin;
+        // $user_id = auth()->user()->id;
+        // if($is_admin){
+        //     $mobils = Mobil::latest()->paginate(10);
+        // }
+        // else{
+        //     // $mobils = Mobil->where()->paginate(10);
+        //     $mobils = DB::table('mobils')->where('user_id','>=',$user_id)->paginate(10);
+        // }
+        $user = auth()->user();
+        $auth_id = $user->id;
+        $mobils = Mobil::latest()->paginate(10);
+        if(request('search')){
+            $action = request('action');
+
+            if ($action === 'cari') {
+                // Handle the "Cari" button click
+                // For example: return view('search_results');
+                $word = request('search');
+                // dd($word);
+                $items = DB::table('mobils')->where('merek','LIKE','%'.$word."%")->orWhere('model','LIKE','%'.$word."%")->paginate(9);
+                // dd($items);
+                $items->appends(request()->all());
+                return view('dashboard.mobil.index',[
+                    "title" => "JASA PERSEWAAN MOBIL",
+                    // 'active' => 'dashboard/buku',
+                    'mobils' => $items,
+                    'auth_id'=>$auth_id
+                ]);
+            } elseif ($action === 'tersedia') {
+                // Handle the "Tersedia" button click
+                // For example: return view('tersedia_results');
+                $mobils = DB::table('mobils')->where('status',1)->paginate(9);
+                return view('dashboard.mobil.index',[
+                    'title' => 'JASA PERSEWAAN MOBIL',
+                    'mobils' => $mobils,
+                    'auth_id'=>$auth_id
+                ]);
+            }
+            
         }
-        else{
-            // $mobils = Mobil->where()->paginate(10);
-            $mobils = DB::table('mobils')->where('user_id','>=',$user_id)->paginate(10);
-        }
+        // $mobils = Mobil::latest()->paginate(10);
         // dd($mobils);
-        return view('dashboard.mobil.index',['title'=>'Data Mobil','mobils'=>$mobils]);
+        return view('dashboard.mobil.index',['title'=>'Data Mobil','mobils'=>$mobils, 'auth_id'=>$auth_id]);
     }
 
     /**
@@ -106,6 +139,10 @@ class DashboardMobilController extends Controller
         Mobil::destroy($mobil->id);
         return redirect('/dashboard/mobils')->with('success', 'Data mobil berhasil dihapus!');
     }
+
+    // public function sewa(){
+
+    // }
 
     /**
      * Fungsi status_name : untuk mengetahui status dari mobil yang diketahui

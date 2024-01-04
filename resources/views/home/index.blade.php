@@ -11,6 +11,29 @@
       </div>
     @endif
 
+    <div class="row justify-content-center mt-4 mb-3">
+        <div class="col-md-6">
+            <form action="/">
+                <!-- @if (request('category'))
+                    <input type="hidden" name="category" value="{{ request('category') }}">
+                @endif
+                @if (request('author'))
+                    <input type="hidden" name="author" value="{{ request('author') }}">
+                @endif -->
+                <div class="input-group mb-3">
+                    <input type="text" class="form-control" placeholder="Cari Mobil.." name="search" value="{{ request('search') }}">
+                    <button class="btn btn-info border border-1 border-dark" type="submit" name="action" value="cari">Cari</button>
+                    <!-- Add a line (separator) between buttons -->
+                    <!-- <div class="input-group-append">
+                        <span class="input-group-text" style="border-left: 1px solid #ddd;"></span>
+                    </div> -->
+                    <button class="btn btn-info border border-1 border-dark" type="submit" name="action" value="tersedia">Tersedia</button>
+                </div>
+
+            </form>
+        </div>
+    </div>
+
     <div class="container">
         <div class="row">
             @foreach ($mobils as $mobil)
@@ -29,7 +52,7 @@
                             @endphp
                         </p>
                         @if ($mobil->status==1)
-                            <a href="/mobils/{{ $mobil->id }}" class="btn btn-primary">Sewa</a>
+                            <a href="/login" class="btn btn-primary">Sewa</a>
                         @endif
                         </div>
                     </div>
@@ -37,5 +60,11 @@
             @endforeach
         </div>
     </div>
+
+    <script>
+        function redirectToTersediaPage() {
+            window.location.href = '/home/tersedia';
+        }
+    </script>
    
 @endsection

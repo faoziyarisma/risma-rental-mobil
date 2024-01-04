@@ -20,7 +20,14 @@
         <hr class="dropdown-divider mx-2">
         <li class="nav-item">
           <a class="nav-link {{ Request::is('dashboard/orders*') ? 'active' : '' }}" href="/dashboard/orders">
-            <span><i class="bi bi-credit-card"></i> Transaksi</span>
+            <span><i class="bi bi-credit-card-2-back"></i> Peminjaman Mobil</span>
+          </a>
+        </li>
+        <!-- Divider -->
+        <hr class="dropdown-divider mx-2">
+        <li class="nav-item">
+          <a class="nav-link {{ Request::is('dashboard/pengembalians*') ? 'active' : '' }}" href="/dashboard/pengembalians">
+            <span><i class="bi bi-credit-card"></i> Pengembalian Mobil</span>
           </a>
         </li>
         <!-- Divider -->

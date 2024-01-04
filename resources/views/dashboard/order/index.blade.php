@@ -6,7 +6,7 @@
         <h4>Data Mobil RENTAL RISMA</h4>
     </div>
     {{-- deskripsi --}}
-    <p class="mb-3">Daftar data mobil RENTAL RISMA terdaftar.</p>
+    <p class="mb-3">Daftar data peminjaman mobil RENTAL RISMA terdaftar.</p>
 
     @if (session()->has('success'))
         <div class="alert alert-success py-2" role="alert">
@@ -14,7 +14,7 @@
         </div>
     @endif
 
-    <a href="/dashboard/mobils/create" class="btn btn-info text-dark py-2 px-2 rounded mb-4">+ Tambah mobil</a>
+    <a href="/dashboard/orders/create" class="btn btn-info text-dark py-2 px-2 rounded mb-4">Sewa mobil</a>
 
     {{-- Daftar mobil terdaftar --}}
     <div class="card shadow mb-4">
@@ -23,18 +23,6 @@
         </div>
 
         <div class="card-body">
-            <div class="row">
-                <div class="col-md-4 ms-auto">
-                    <form action="/dashboard/mobils">
-                        <div class="input-group my-2">
-                            <input type="text" class="form-control" placeholder="merek, model" name="search" value="{{ request('search') }}">
-                            <!-- <button class="btn btn-info text-dark" type="submit" id="button-addon2">Cari mobil</button> -->
-                            <button class="btn btn-info border border-1 border-dark" type="submit" name="action" value="cari">Cari</button>
-                            <button class="btn btn-info border border-1 border-dark" type="submit" name="action" value="tersedia">Tersedia</button>
-                        </div>
-                    </form>
-                </div>
-            </div>
             
             <div class="table-responsive mt-3">
                 <table class="table table bordered" width="100%" cellspacing="0">
@@ -42,31 +30,31 @@
                         <tr>
                             <th>Id</th>
                             <th>Merek</th>
-                            <th>Model</th>
-                            <th>Status</th>
+                            <th>Tanggal Mulai</th>
+                            <th>Tanggal Selesai</th>
                             <th>Action</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @if (count($mobils)>0)
-                            @foreach ($mobils as $mobil)
+                        @if (count($orders)>0)
+                            @foreach ($orders as $order)
                                 <tr>
-                                    <td>{{ $mobil->id }}</td>
-                                    <td>{{ $mobil->merek }}</td>
-                                    <td>{{ $mobil->model }}</td>
+                                    <td>{{ $order->id }}</td>
                                     <td>
                                         @php
-                                            $status = $mobil->status;
-                                            $status_name = App\Http\Controllers\DashboardMobilController::status_name($status);
-                                            echo $status_name;
+                                            $mobil_id = $order->mobil_id;
+                                            $merek_mobil = App\Http\Controllers\DashboardOrderController::merek_mobil($mobil_id);
+                                            echo $merek_mobil;
                                         @endphp
+                                        <!-- {{ $order->mobil_id }} -->
                                     </td>
-                                    <!-- <td>{{$mobil->user_id}}</td> -->
+                                    <td>{{ $order->tgl_mulai }}</td>
+                                    <td>{{ $order->tgl_selesai }}</td>
                                     <td>
-                                        @if ($mobil->user_id == $auth_id)
-                                            <a href="/dashboard/mobils/{{ $mobil->id }}" class="badge bg-info"><span><i class="bi bi-eye"></i></span></a>
-                                            <a href="/dashboard/mobils/{{ $mobil->id }}/edit" class="badge bg-warning"><span><i class="bi bi-pencil"></i></span></a>
-                                            <form action="/dashboard/mobils/{{ $mobil->id }}" method="post" class="d-inline">
+                                        @if ($order->user_id == $auth_id)
+                                            <a href="/dashboard/orders/{{ $order->id }}" class="badge bg-info"><span><i class="bi bi-eye"></i></span></a>
+                                            <a href="/dashboard/orders/{{ $order->id }}/edit" class="badge bg-warning"><span><i class="bi bi-pencil"></i></span></a>
+                                            <form action="/dashboard/orders/{{ $order->id }}" method="post" class="d-inline">
                                                 @method('delete')
                                                 @csrf
                                                 <button class="badge bg-danger border-0" onclick="return confirm('Apakah anda yakin ingin menghapus data ini?')"><span><i class="bi bi-trash-fill"></i></span></button>
@@ -76,12 +64,12 @@
                                 </tr>
                             @endforeach
                         @else
-                            <tr><td colspan="6" style="text-align:center">Mobil tidak ditemukan!</td></tr>
+                            <tr><td colspan="6" style="text-align:center">Data peminjaman mobil tidak ditemukan!</td></tr>
                         @endif
                     </tbody>
                 </table>
                 <div class="pagination-block d-flex justify-content-end">
-                    {{ $mobils->links() }}
+                    {{ $orders->links() }}
                 </div>
             </div>
         </div>

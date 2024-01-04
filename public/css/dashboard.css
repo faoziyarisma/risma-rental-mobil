@@ -283,3 +283,8 @@ body {
   .tablecenterCSS td{
     text-align:center;
   }
+
+  .badge.bg-info:hover {
+    background-color: #007bff; /* Change the color to your preferred hover color */
+    color: #fff; /* Change the text color to your preferred hover text color */
+}

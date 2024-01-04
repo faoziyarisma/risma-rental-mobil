@@ -19,6 +19,7 @@ return new class extends Migration
             $table->date('tgl_mulai');
             $table->date('tgl_selesai');
             $table->double('tarif',12,2);
+            $table->boolean('status_sewa')->default(false);
             $table->timestamps();
 
             // Menambahkan foreign key constraints

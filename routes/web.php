@@ -7,6 +7,7 @@ use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DashboardMobilController;
 use App\Http\Controllers\DashboardOrderController;
+use App\Http\Controllers\DashboardPengembalianController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -23,6 +24,8 @@ use App\Http\Controllers\DashboardOrderController;
 // });
 Route::get('/', [HomeController::class, 'index']);
 
+Route::get('/home/tersedia', [HomeController::class, 'index_tersedia']);
+
 //Route halaman default yaitu halaman login
 Route::get('/login', [LoginController::class, 'index'])->name('login');
 
@@ -38,11 +41,18 @@ Route::post('/register', [RegisterController::class, 'store']);
 //Route Dashboard untuk admin
 Route::get('/dashboard', [DashboardController::class, 'index']);
 
+
 //Route untuk halaman mobil
 Route::resource('/dashboard/mobils', DashboardMobilController::class);
 
 //Route untuk halaman peminjaman mobil
 Route::resource('/dashboard/orders', DashboardOrderController::class);
+
+//Route untuk halaman pengembalian mobil
+Route::resource('/dashboard/pengembalians', DashboardPengembalianController::class);
+
+//halaman single event
+Route::get('/dashboard/pengembalians/{mobil:id}',[DashboardMobilController::class,'sewa']);
 
 //Routing logout
 Route::post('/logout', [LoginController::class, 'logout']);
